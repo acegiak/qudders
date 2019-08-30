@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objects>
+        <object Name="DoNotUse_MilkLiquidTestObjectInitializer" Inherits="Item">
+                <part Name="Render" DisplayName="[Dummy item for Liquid Test]" />
+                <part Name="acegiak_MilkLiquidInitializer" />
+                <tag Name="ExcludeFromDynamicEncounters" />
+            </object>
+        <object Name="DefaultGlands" Inherits="Armor">
+                <part Name="Armor" AV="0" DV="0" WornOn="Glands" />
+                <part Name="Render" DisplayName="glands" ColorString="&amp;M" RenderString="]" DetailColor="Y" Tile="Items/sw_recycling_suit.bmp" />
+                <part Name="LiquidProducer" Liquid="milk" Rate="1000" WorksOnWearer="true" WorksOnSelf="false" />
+                <part Name="Description" Short="Glands slowly secreting milk over time." />
+                <part Name="acegiak_NoPour"  MaxVolume="8" StartVolume="1-8" InitialLiquid="milk-1000" />
+                <part Name="Cursed" />
+                <part Name="NoDamage" />
+                <part Name="NoBreak" />
+                <tag Name="NoSparkingQuest" />
+                <tag Name="Gender" Value="plural" />
+        </object>
+        <object Name="Milk Bottle" Inherits="Bottle">
+                <part Name="LiquidVolume" MaxVolume="16" StartVolume="1d7-1" InitialLiquid="milk-1000"></part>
+                <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit"></tag>
+                <removepart Name="PopulationLiquidFiller" />
+        </object>
+
+</objects>

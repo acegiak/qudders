@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mutations>
+        <category Name="Physical" Load="Merge">
+                <mutation Name="Milk Glands" Cost="1" MaxSelected="1" Class="acegiak_Glands" BearerDescription="the buxom" Code="ud"></mutation>
+        </category>
+</mutations>
