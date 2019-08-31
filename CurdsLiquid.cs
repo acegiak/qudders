@@ -10,11 +10,11 @@ using XRL.World.Parts.Effects;
 namespace XRL.Liquids
 {
 	[Serializable]
-	internal class acegiak_LiquidMilk : BaseLiquid
+	internal class acegiak_LiquidCurds : BaseLiquid
 	{
-		public new const int ID = 137;
+		public new const int ID = 139;
 
-		public new const string Name = "milk";
+		public new const string Name = "curd";
 
 		[NonSerialized]
 		public static List<string> Colors = new List<string>(2)
@@ -23,8 +23,8 @@ namespace XRL.Liquids
 			"W"
 		};
 
-		public acegiak_LiquidMilk()
-			: base(Convert.ToByte(ID), "milk", 350, 2000, 1.1f)
+		public acegiak_LiquidCurds()
+			: base(Convert.ToByte(ID), "curd", 350, 2000, 1.1f)
 		{
 		}
 
@@ -40,17 +40,17 @@ namespace XRL.Liquids
 
 		public override string GetName(LiquidVolume Liquid)
 		{
-			return "&Ymilk";
+			return "&Wcurd";
 		}
 
 		public override string GetAdjective(LiquidVolume Liquid)
 		{
-			return "&Ymilky";
+			return "&Wcurdled";
 		}
 
 		public override string GetSmearedName(LiquidVolume Liquid)
 		{
-			return "&Ymilky";
+			return "&Wcurdy";
 		}
 
 

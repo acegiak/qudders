@@ -7,7 +7,7 @@
             </object>
         <object Name="DefaultGlands" Inherits="Armor">
                 <part Name="Armor" AV="0" DV="0" WornOn="Glands" />
-                <part Name="Render" DisplayName="glands" ColorString="&amp;M" RenderString="]" DetailColor="Y" Tile="Items/sw_recycling_suit.bmp" />
+                <part Name="Render" DisplayName="milk glands" ColorString="&amp;M" RenderString="]" DetailColor="Y" Tile="Items/sw_recycling_suit.bmp" />
                 <part Name="LiquidProducer" Liquid="milk" Rate="1000" WorksOnWearer="true" WorksOnSelf="false" />
                 <part Name="Description" Short="Glands slowly secreting milk over time." />
                 <part Name="acegiak_NoPour"  MaxVolume="8" StartVolume="1-8" InitialLiquid="milk-1000" />
@@ -19,8 +19,59 @@
         </object>
         <object Name="Milk Bottle" Inherits="Bottle">
                 <part Name="LiquidVolume" MaxVolume="16" StartVolume="1d7-1" InitialLiquid="milk-1000"></part>
-                <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit"></tag>
+                <!-- /<tag Name="ExcludeFromDynamicEncounters" Value="*noinherit"></tag> -->
+                <tag Name="FermentTo" Value="MilkCurds"/>
                 <removepart Name="PopulationLiquidFiller" />
         </object>
+        <object Name="Hunk of Cheese" Load="Merge" Inherits="Preservable">
+                <part Name="EffectOnEat" Effect="CookingDomainRegenLowtier_RegenerationUnit"></part>
+        </object>
+
+        
+
+      <object Name="ProceduralCookingIngredient_strongBones" Inherits="IngredientMapping">
+        <tag Name="Units" Value="CookingDomainStrongBones_BludgeonDamageReduction"></tag>
+        <tag Name="Triggers" Value="CookingDomainStrongBones_OnBludgeon"></tag>
+        <tag Name="Description" Value="bone-strength-based"></tag>
+        <tag Name="RandomWeight" Value="10" />
+      </object>
+
+  <!-- <object Name="Spine Fruit" Load="Merge">
+        <tag Name="FermentTo" Value="wine"/>
+      </object>
+      <object Name="HoneyPool" Load="Merge">
+        <tag Name="FermentTo" Value="mead"/>
+      </object> -->
+      <object Name="MilkCurds" Inherits="Preservable">
+        <part Name="Render" DisplayName="&amp;Wcurds" RenderString="%" ColorString="&amp;W" TileColor="&amp;y" DetailColor="W" RenderLayer="5" Tile="Items/sw_Jam.bmp"></part>
+        <part Name="Commerce" Value="8"></part>
+        <part Name="Description" Short="Milk made hard through separation."></part>
+        <part Name="PreparedCookingIngredient" type="strongBones" charges="2"></part>
+        <part Name="PreservableItem" Result="Hunk of Cheese" Number="1" />
+
+        <!-- <tag Name="Plant"></tag>
+        <tag Name="DynamicObjectsTable:Saltdunes_Ingredients"></tag> -->
+      </object>
+
+      <object Name="BaseAnimal" Load="Merge">
+                <part Name="acegiak_ChanceToMutate" Mutation="Milk Glands" Chance="10"></part>
+      </object>
+      
+        <object Name="milkLichen" Inherits="LiquidLichen">
+                <part Name="Render" RenderIfDark="true" DisplayName="&amp;ygiant &amp;wmilk&amp;y weep" RenderString="231" ColorString="&amp;w"></part>
+                <mutation Name="LiquidFont" Liquid="milk"></mutation>
+                <part Name="SecretObject" text="A &amp;ygiant &amp;wmilk&amp;y weep" message="You spot a &amp;ygiant &amp;wmilk&amp;y weep." adjectives="milk,weep" category="Natural Features"></part>
+        </object>
+        <object Name="milkLichen Minor" Inherits="LiquidLichen Minor">
+                <part Name="Render" RenderIfDark="true" DisplayName="&amp;wmilk&amp;y weep" RenderString="231" ColorString="&amp;w"></part>
+                <mutation Name="LiquidFont" Liquid="milk"></mutation>
+                <part Name="SecretObject" text="A &amp;wmilk&amp;y weep" message="You spot a &amp;wmilk&amp;y weep." adjectives="milk,weep" category="Natural Features"></part>
+        </object>
+      <!-- <object Name="YoghurtDribble" Inherits="Water">
+        <part Name="LiquidVolume" MaxVolume="-1" Volume="10" StartVolume="1" InitialLiquid="yoghurt-1000"></part>
+      </object>
+      <object Name="CurdDribble" Inherits="Water">
+        <part Name="LiquidVolume" MaxVolume="-1" Volume="10" StartVolume="1" InitialLiquid="curd-1000"></part>
+      </object> -->
 
 </objects>

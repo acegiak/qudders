@@ -29,7 +29,7 @@ namespace XRL.World.Parts.Mutation
 		}
         public void AddBodyPart(){
             
-			BodyPartType.Make("Glands", null, "glands", null, null, "DefaultGland", null, null, null, null, null, null, false, false, false, true);
+			BodyPartType.Make("Glands", null, "glands", null, null, "DefaultGlands", null, null, null, null, null, null, false, false, false, true);
             
             Body part = ParentObject.GetPart<Body>();
 			if (part != null)
@@ -52,13 +52,52 @@ namespace XRL.World.Parts.Mutation
 		public override void Register(GameObject Object)
 		{
 			Object.RegisterPartEvent(this, "ObjectCreated");
+			Object.RegisterPartEvent(this, "GetInventoryActions");
+			Object.RegisterPartEvent(this, "InvCommandMilk");
+			Object.RegisterPartEvent(this, "GetShortDescription");
+            base.Register(Object);
 		}
 
+		public GameObject CheckGlands()
+		{
+			GameObject result = null;
+			int num = 0;
+			Body part = ParentObject.GetPart<Body>();
+			BodyPart bp = part.GetFirstPart("Glands");
+			
+			return bp.Equipped;
+		}
 		public override bool FireEvent(Event E)
 		{
             if(E.ID =="ObjectCreated"){
                 AddBodyPart();
             }
+
+
+            if (E.ID == "GetInventoryActions")
+			{
+                //if(Volume > 0){
+						// E.AddInventoryAction("Drink", 'k',  false, "drin&Wk&y", "InvCommandDrinkObject");
+						E.AddInventoryAction("Milk", 'm',  false, "&Wm&yilk", "InvCommandMilk");
+                        // E.AddInventoryAction("Collect", 'c',  false, "&Wc&yollect", "InvCommandCollectObject");
+                //}
+			}
+
+            if (E.ID == "InvCommandMilk")
+			{
+				GameObject GO = CheckGlands();
+				if(GO != null){
+					GO.FireEvent(E.Copy("InvCommandPourObject"));
+				}
+			}
+
+
+			// if (E.ID == "GetShortDescription")
+			// {
+			// 	string text = "\n&CEndowed with pendulous milk glands.";
+			// 	E.SetParameter("Postfix", E.GetStringParameter("Postfix") + text);
+			// 	return true;
+			// }
 
 			return true;
 		}

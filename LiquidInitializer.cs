@@ -25,6 +25,14 @@ namespace XRL.World.Parts
 			LiquidVolume.ComponentLiquidNameMap.Add("milk", LiquidVolume.ComponentLiquidTypes[Convert.ToByte(acegiak_LiquidMilk.ID)]);
 
 
+			// LiquidVolume.ComponentLiquidTypes.Add(Convert.ToByte(acegiak_LiquidYoghurt.ID), new acegiak_LiquidYoghurt());
+			// LiquidVolume.ComponentLiquidNameMap.Add("yoghurt", LiquidVolume.ComponentLiquidTypes[Convert.ToByte(acegiak_LiquidYoghurt.ID)]);
+
+
+			// LiquidVolume.ComponentLiquidTypes.Add(Convert.ToByte(acegiak_LiquidCurds.ID), new acegiak_LiquidCurds());
+			// LiquidVolume.ComponentLiquidNameMap.Add("curd", LiquidVolume.ComponentLiquidTypes[Convert.ToByte(acegiak_LiquidCurds.ID)]);
+
+
             Debug.Log("Initializing Milk Liquids - COMPLETE.");
 			
 

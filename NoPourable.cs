@@ -18,9 +18,9 @@ namespace XRL.World.Parts
             if (E.ID == "GetInventoryActions")
 			{
                 if(Volume > 0){
-						E.AddInventoryAction("Drink", 'k',  false, "drin&Wk&y", "InvCommandDrinkObject");
+						//E.AddInventoryAction("Drink", 'k',  false, "drin&Wk&y", "InvCommandDrinkObject");
 						E.AddInventoryAction("Milk", 'm',  false, "&Wm&yilk", "InvCommandPourObject");
-                        E.AddInventoryAction("Collect", 'c',  false, "&Wc&yollect", "InvCommandCollectObject");
+                        //E.AddInventoryAction("Collect", 'c',  false, "&Wc&yollect", "InvCommandCollectObject");
                 }
                 return true;
 			}else{
