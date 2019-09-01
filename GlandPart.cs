@@ -1,4 +1,5 @@
 using System;
+using XRL.Language;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -11,13 +12,12 @@ namespace XRL.World.Parts.Mutation
 
 		public int OldFeetID;
 
-        public string glandtype;
+        public string GlandType = "milk";
 
 		public acegiak_Glands()
 		{
 			DisplayName = "Milk Glands";
 			Type = "Physical";
-            
 		}
         public override bool SameAs(IPart p)
 		{
@@ -28,16 +28,35 @@ namespace XRL.World.Parts.Mutation
 			return false;
 		}
         public void AddBodyPart(){
+
+			string gtype = ParentObject.GetTag("GlandLiquid");
+			if(gtype != null){
+				IPart.AddPlayerMessage("glandtype:"+gtype);
+				this.GlandType = gtype;
+			}
             
-			BodyPartType.Make("Glands", null, "glands", null, null, "DefaultGlands", null, null, null, null, null, null, false, false, false, true);
-            
+			BodyPartType.Make("Glands", null, "glands", null, null, null, null, null, null, null, null, null, false, false, false, true);
+            //third null after glands is defaultaction
+
             Body part = ParentObject.GetPart<Body>();
 			if (part != null)
 			{
 				BodyPart body = part.GetBody();
+
+				if(body.GetFirstPart("Glands")!= null){
+					return;
+				}
 				
 				BodyPart firstPart = body.AddPart(new BodyPart("Glands",part),"Back");
                 GameObject GlandsObject = GameObjectFactory.Factory.CreateObject("DefaultGlands");
+				GlandsObject.DisplayName = GlandType+" glands";
+				GlandsObject.GetPart<LiquidProducer>().Liquid=GlandType;
+				GlandsObject.GetPart<LiquidVolume>().Empty();
+				GlandsObject.GetPart<LiquidVolume>().InitialLiquid=GlandType+"-1000";
+				GlandsObject.GetPart<LiquidVolume>().Volume = GlandsObject.GetPart<LiquidVolume>().StartVolume.RollCached();
+				//GlandsObject.GetPart<acegiak_NoPour>().ProcessInitialLiquid(GlandType-"1000");
+
+
 				Event @event = Event.New("CommandForceEquipObject");
 				@event.AddParameter("Object", GlandsObject);
 				@event.AddParameter("BodyPart", firstPart);
@@ -87,7 +106,28 @@ namespace XRL.World.Parts.Mutation
 			{
 				GameObject GO = CheckGlands();
 				if(GO != null){
+					if(ParentObject.pBrain.IsHostileTowards(E.GetGameObjectParameter("Owner")) ){
+						
+						if (ParentObject.MakeSave("Strength", 18, E.GetGameObjectParameter("Owner"), null, "Milking"))
+						{
+							if (IPart.Visible(ParentObject))
+							{
+								ParentObject.ParticleText(IPart.ConsequentialColor(ParentObject) + "*resisted*");
+							}
+							if (E.GetGameObjectParameter("Owner").IsPlayer())
+							{
+								IPart.AddPlayerMessage("&r" + ParentObject.The + ParentObject.ShortDisplayName + "&r" + ParentObject.GetVerb("resist") + " your milking attempt.");
+							}
+							else if (ParentObject.IsPlayer())
+							{
+								IPart.AddPlayerMessage("&gYou resist " + Grammar.MakePossessive(E.GetGameObjectParameter("Owner").the + E.GetGameObjectParameter("Owner").ShortDisplayName) + "&g milking attempt.");
+							}
+							E.RequestInterfaceExit();
+							return false;
+						}
+					}
 					GO.FireEvent(E.Copy("InvCommandPourObject"));
+
 				}
 			}
 

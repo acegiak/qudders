@@ -7,10 +7,10 @@
             </object>
         <object Name="DefaultGlands" Inherits="Armor">
                 <part Name="Armor" AV="0" DV="0" WornOn="Glands" />
-                <part Name="Render" DisplayName="milk glands" ColorString="&amp;M" RenderString="]" DetailColor="Y" Tile="Items/sw_recycling_suit.bmp" />
+                <part Name="Render" DisplayName="milk glands" ColorString="&amp;M" RenderString="]" DetailColor="Y" Tile="items/udder.png" />
                 <part Name="LiquidProducer" Liquid="milk" Rate="1000" WorksOnWearer="true" WorksOnSelf="false" />
                 <part Name="Description" Short="Glands slowly secreting milk over time." />
-                <part Name="acegiak_NoPour"  MaxVolume="8" StartVolume="1-8" InitialLiquid="milk-1000" />
+                <part Name="LiquidVolume"  MaxVolume="8" StartVolume="1-8" InitialLiquid="milk-1000" />
                 <part Name="Cursed" />
                 <part Name="NoDamage" />
                 <part Name="NoBreak" />
@@ -53,7 +53,7 @@
         <tag Name="DynamicObjectsTable:Saltdunes_Ingredients"></tag> -->
       </object>
 
-      <object Name="BaseAnimal" Load="Merge">
+      <object Name="Animal" Load="Merge">
                 <part Name="acegiak_ChanceToMutate" Mutation="Milk Glands" Chance="10"></part>
       </object>
       
@@ -73,5 +73,10 @@
       <object Name="CurdDribble" Inherits="Water">
         <part Name="LiquidVolume" MaxVolume="-1" Volume="10" StartVolume="1" InitialLiquid="curd-1000"></part>
       </object> -->
+
+
+      <object Name="Giant Centipede" Load="Merge">
+        <tag Name="GlandLiquid" Value="acid"></tag>
+      </object>
 
 </objects>
