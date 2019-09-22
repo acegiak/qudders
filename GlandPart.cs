@@ -31,7 +31,7 @@ namespace XRL.World.Parts.Mutation
 
 			string gtype = ParentObject.GetTag("GlandLiquid");
 			if(gtype != null){
-				IPart.AddPlayerMessage("glandtype:"+gtype);
+				//IPart.AddPlayerMessage("glandtype:"+gtype);
 				this.GlandType = gtype;
 			}
             
