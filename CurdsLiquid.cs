@@ -12,9 +12,7 @@ namespace XRL.Liquids
 	[Serializable]
 	internal class acegiak_LiquidCurds : BaseLiquid
 	{
-		public new const int ID = 139;
-
-		public new const string Name = "curd";
+		public new const string ID = "curd";
 
 		[NonSerialized]
 		public static List<string> Colors = new List<string>(2)
@@ -24,7 +22,7 @@ namespace XRL.Liquids
 		};
 
 		public acegiak_LiquidCurds()
-			: base(Convert.ToByte(ID), "curd", 350, 2000, 1.1f)
+			: base(ID, 350, 2000, 1.1f)
 		{
 		}
 
@@ -62,7 +60,7 @@ namespace XRL.Liquids
 		public override bool Drank(LiquidVolume Liquid, int Volume, GameObject Target, StringBuilder Message, ref bool ExitInterface)
 		{
 			
-			if (Target.HasPart("Stomach") && !Target.FireEvent(new Event("AddWater", "Amount", 10 * Liquid.ComponentLiquids[Convert.ToByte(ID)])))
+			if (Target.HasPart("Stomach") && !Target.FireEvent(new Event("AddWater", "Amount", 10 * Liquid.ComponentLiquids[ID])))
 			{
 				return false;
 			}
