@@ -34,9 +34,6 @@ namespace XRL.World.Parts.Mutation
 				//IPart.AddPlayerMessage("glandtype:"+gtype);
 				this.GlandType = gtype;
 			}
-            
-			BodyPartType.Make("Glands", null, "glands", null, null, null, null, null, null, null, null, null, false, false, false, true);
-            //third null after glands is defaultaction
 
             Body part = ParentObject.GetPart<Body>();
 			if (part != null)
@@ -46,7 +43,7 @@ namespace XRL.World.Parts.Mutation
 				if(body.GetFirstPart("Glands")!= null){
 					return;
 				}
-				
+
 				BodyPart firstPart = body.AddPart(new BodyPart("Glands",part),"Back");
                 GameObject GlandsObject = GameObjectFactory.Factory.CreateObject("DefaultGlands");
 				GlandsObject.DisplayName = GlandType+" glands";
@@ -65,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
             }
 
-            
+
         }
 
 		public override void Register(GameObject Object)
@@ -83,7 +80,7 @@ namespace XRL.World.Parts.Mutation
 			int num = 0;
 			Body part = ParentObject.GetPart<Body>();
 			BodyPart bp = part.GetFirstPart("Glands");
-			
+
 			return bp.Equipped;
 		}
 		public override bool FireEvent(Event E)
@@ -107,7 +104,7 @@ namespace XRL.World.Parts.Mutation
 				GameObject GO = CheckGlands();
 				if(GO != null){
 					if(ParentObject.pBrain.IsHostileTowards(E.GetGameObjectParameter("Owner")) ){
-						
+
 						if (ParentObject.MakeSave("Strength", 18, E.GetGameObjectParameter("Owner"), null, "Milking"))
 						{
 							if (IPart.Visible(ParentObject))
@@ -168,7 +165,7 @@ namespace XRL.World.Parts.Mutation
 			if (part != null)
 			{
 				BodyPart body = part.GetBody();
-				
+
 				int glandcount = body.GetPartCount("Glands");
                 if(glandcount <= 0){
                     AddBodyPart();
@@ -183,7 +180,7 @@ namespace XRL.World.Parts.Mutation
 			if (part != null)
 			{
 				BodyPart body = part.GetBody();
-				
+
 				int glandcount = body.GetPartCount("Glands");
                 if(glandcount > 0){
                     body.RemovePart(body.GetFirstPart("Glands"));
