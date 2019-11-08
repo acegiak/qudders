@@ -11,6 +11,10 @@
                 <part Name="NoBreak" />
                 <tag Name="NoSparkingQuest" />
                 <tag Name="Gender" Value="plural" />
+                <intproperty Name="Natural" Value="1" />
+                <tag Name="ExcludeFromDynamicEncounters" />
+                <part Name="Physics" Category="Natural Armor" IsReal="false" Weight="0" />
+                <tag Name="NoSparkingQuest" />
         </object>
         <object Name="Milk Bottle" Inherits="Bottle">
                 <part Name="LiquidVolume" MaxVolume="16" StartVolume="1d7-1" InitialLiquid="milk-1000"></part>
@@ -51,6 +55,9 @@
       <object Name="Animal" Load="Merge">
                 <part Name="acegiak_ChanceToMutate" Mutation="Milk Glands" Chance="10"></part>
       </object>
+      <object Name="Humanoid" Load="Merge">
+                <part Name="acegiak_ChanceToMutate" Mutation="Milk Glands" Chance="10"></part>
+      </object>
       
         <object Name="milkLichen" Inherits="LiquidLichen">
                 <part Name="Render" RenderIfDark="true" DisplayName="&amp;ygiant &amp;wmilk&amp;y weep" RenderString="231" ColorString="&amp;w"></part>
@@ -70,8 +77,40 @@
       </object> -->
 
 
-      <object Name="Giant Centipede" Load="Merge">
+      <object Name="BaseInsect" Load="Merge">
         <tag Name="GlandLiquid" Value="acid"></tag>
+      </object>
+
+      <object Name="BaseFish" Load="Merge">
+        <tag Name="GlandLiquid" Value="slime"></tag>
+      </object>
+      <object Name="BaseWorm" Load="Merge">
+        <tag Name="GlandLiquid" Value="slime"></tag>
+      </object>
+
+      <object Name="BaseCrab" Load="Merge">
+        <tag Name="GlandLiquid" Value="wax"></tag>
+      </object>
+
+
+      <object Name="BaseOoze" Load="Merge">
+        <tag Name="GlandLiquid" Value="slime"></tag>
+      </object>
+
+
+      <object Name="BaseReptile" Load="Merge">
+        <tag Name="GlandLiquid" Value="goo"></tag>
+      </object>
+      <object Name="BaseSpider" Load="Merge">
+        <tag Name="GlandLiquid" Value="goo"></tag>
+      </object>
+
+      <object Name="BaseReptile" Load="Merge">
+        <tag Name="GlandLiquid" Value="goo"></tag>
+      </object>
+
+      <object Name="Robot" Load="Merge">
+        <tag Name="GlandLiquid" Value="oil"></tag>
       </object>
 
 </objects>
