@@ -19,7 +19,6 @@
                 <intproperty Name="Natural" Value="1" />
                 <tag Name="ExcludeFromDynamicEncounters" />
                 <part Name="Physics" Category="Natural Armor" IsReal="false" Weight="0" />
-                <tag Name="NoSparkingQuest" />
         </object>
         <object Name="Milk Bottle" Inherits="Bottle">
                 <part Name="LiquidVolume" MaxVolume="16" StartVolume="1d7-1" InitialLiquid="milk-1000"></part>

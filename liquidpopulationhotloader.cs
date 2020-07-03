@@ -6,6 +6,8 @@ using XRL.Rules;
 namespace XRL.World.Parts
 {
 	[Serializable]
+	[WantLoadBlueprint]
+	[HasGameBasedStaticCache]
 	public class acegiak_MilkMerchantHotloader : IPart
 	{
         public acegiak_MilkMerchantHotloader(){
