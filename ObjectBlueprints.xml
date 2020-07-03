@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <objects>
+  <object Name="populationhotloader" Inherits="Object">
+      <part Name="acegiak_MilkMerchantHotloader"/>
+      <tag Name="ExcludeFromDynamicEncounters" />
+  </object>
+
         <object Name="DefaultGlands" Inherits="Armor">
                 <part Name="Armor" AV="0" DV="0" WornOn="Glands" />
                 <part Name="Render" DisplayName="milk glands" ColorString="&amp;M" RenderString="]" DetailColor="Y" Tile="items/udder.png" />
@@ -112,5 +117,59 @@
       <object Name="Robot" Load="Merge">
         <tag Name="GlandLiquid" Value="oil"></tag>
       </object>
+
+      <object Name="DairySign1" Inherits="Sign">
+        <part Name="Render" DisplayName="sign" Tile="Items/sw_sign_liquid.bmp" RenderString="=" ColorString="&amp;y" DetailColor="r" Occluding="false" />
+        <part Name="Chat" Says="Gifts of the Teat!" ShowInShortDescription="true" />
+      </object>
+      <object Name="DairySign2" Inherits="Sign">
+        <part Name="Render" DisplayName="sign" Tile="Items/sw_sign_liquid.bmp" RenderString="=" ColorString="&amp;y" DetailColor="r" Occluding="false" />
+        <part Name="Chat" Says="Precious Bodily Fluids" ShowInShortDescription="true" />
+      </object>
+      <object Name="DairySign3" Inherits="Sign">
+        <part Name="Render" DisplayName="sign" Tile="Items/sw_sign_liquid.bmp" RenderString="=" ColorString="&amp;y" DetailColor="r" Occluding="false" />
+        <part Name="Chat" Says="Milk and More" ShowInShortDescription="true" />
+      </object>
+
+
+      
+  <object Name="DairyFarmer" Inherits="BaseMerchant">
+    <part Name="Render" DisplayName="dairy farmer" ColorString="&amp;Y" DetailColor="W" RenderString="f" />
+    <part Name="ConversationScript" ConversationID="dairyfarmer" />
+    <tag Name="GenericInventoryRestockerPopulationTable" Value="DairyFarmerInventory" />
+    <inventoryobject Blueprint="Sandals" />
+    <inventoryobject Blueprint="Leather Apron" />
+    <inventoryobject Blueprint="*Junk 1" Number="1-3" />
+    <skill Name="CookingAndGathering_Harvestry" />
+    <part Name="Description" Short="The sour smell of =pronouns.possessive= soggy clothes wafts from a distance. =pronouns.Subjective= =verb:recite:afterpronoun= the qualities of =pronouns.possessive= various cattle and their issue." />
+    <property Name="Role" Value="Brute" />
+  </object>
+
+
+  
+  <object Name="Random Milky Bottle" Inherits="Bottle">
+    <part Name="LiquidVolume" StartVolume="0" MaxVolume="16"></part>
+    <part Name="PopulationLiquidFiller" Table="RandomMilk" Volume="1d8"></part>
+    <part Name="Physics" Owner="Merchants"></part>
+    <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit"></tag>
+  </object>
+
+  
+  <object Name="Milk Vase" Inherits="Vase">
+    <part Name="Render" DisplayName="vase" RenderString="249" ColorString="&amp;C" DetailColor="W" Tile="Items/sw_jug.bmp" RenderLayer="6" Occluding="false"></part>
+    <part Name="LiquidVolume" MaxVolume="64" StartVolume="1d7-1" InitialLiquid="milk-1000"></part>
+    <part Name="Physics" Owner="DairyFarmer"></part>
+    <removepart Name="RandomColors" />
+    <removepart Name="PopulationLiquidFiller" />
+    <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit"></tag>
+  </object>
+  <object Name="Milk Pitcher" Inherits="Pitcher">
+    <part Name="Render" DisplayName="clay pitcher" RenderString="249" ColorString="&amp;w" DetailColor="Y" Tile="Items/sw_jug3.bmp" RenderLayer="6" Occluding="false"></part>
+    <part Name="LiquidVolume" MaxVolume="64" StartVolume="1d7-1" InitialLiquid="milk-1000"></part>
+    <part Name="Physics" Owner="DairyFarmer"></part>
+    <tag Name="ExcludeFromDynamicEncounters" Value="*noinherit"></tag>
+    <removepart Name="RandomColors" />
+    <removepart Name="PopulationLiquidFiller" />
+  </object>
 
 </objects>

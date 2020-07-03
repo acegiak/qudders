@@ -17,6 +17,9 @@ namespace XRL.World.Parts
         public int Level = 1;
 
         public void domutate(){
+            if(ParentObject.IsPlayer() || ParentObject.IsMemberOfFaction("Templar")){
+                return;
+            }
             int roll = Stat.Random(1,100);
            Log("Titroll:"+roll.ToString()+"/"+Chance.ToString());
             if(roll<=Chance){

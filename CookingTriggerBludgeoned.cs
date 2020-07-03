@@ -1,6 +1,7 @@
 using XRL.Rules;
+using XRL.World.Parts;
 
-namespace XRL.World.Parts.Effects
+namespace XRL.World.Effects
 {
 	public class CookingDomainStrongBones_OnBludgeon : ProceduralCookingEffectWithTrigger
 	{

@@ -1,0 +1,14 @@
+<conversations>
+  <conversation ID="dairyfarmer">
+    <node ID="Start">
+      <text>
+        Greetings, =player.formalAddressTerm=.~
+        Live and drink deeply, =player.formalAddressTerm=.~
+        Ah, =player.formalAddressTerm=, please come in.~
+        My wares are borne of the finest cattle, =player.formalAddressTerm=. Care to try them?~
+        The kipper and I both know that the finest ingredient is time.~
+      </text>
+      <choice GotoID="End">Live and drink.</choice>
+    </node>
+  </conversation>
+</conversations>

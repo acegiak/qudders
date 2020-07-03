@@ -1,0 +1,56 @@
+<populations>
+  <population Name="DairyTent">
+    <group Style="pickeach">
+      <object Blueprint="DairyFarmer" Number="1" Hint="Interior"></object>
+      <table Name="DairyTentContents"></table>
+    </group>
+  </population>
+  
+  <population Name="DairyTentContents">
+    <group Style="pickeach">
+      <object Blueprint="Torchpost" Number="1-2" Hint="InsideCorner"></object>
+      <table Name="DairySigns"></table>
+      <object Blueprint="Torchpost" Number="1-2" Hint="OutsideDoor:2"></object>
+      <object Blueprint="Table" Number="2-3" Hint="AlongInsideWall"></object>
+      <object Blueprint="Woven Basket" Number="1"></object>
+      <object Blueprint="Alchemist Table" Number="1"></object>
+      <object Blueprint="Chest" Number="1-3" Hint="AlongInsideWall"></object>
+      
+      <object Blueprint="Milk Vase" Number="2-3" Hint="AlongOutsideFrontWall"></object>
+      <object Blueprint="Milk Vase" Number="1-2" Hint="AlongInsideWall"></object>
+      <object Blueprint="Milk Bottle" Number="2-3" Hint="AlongInsideWall"></object>
+      <object Blueprint="Milk Pitcher" Number="2-3" Hint="AlongInsideWall"></object>
+    </group>
+  </population>
+
+  
+  <population Name="DairySigns">
+    <group Style="pickone">
+      <object Blueprint="DairySign1" Number="1" Hint="OutsideDoor:1"></object>
+      <object Blueprint="DairySign2" Number="1" Hint="OutsideDoor:1"></object>
+      <object Blueprint="DairySign3" Number="1" Hint="OutsideDoor:1"></object>
+    </group>
+  </population>
+
+
+  
+  <population Name="RandomMilk">
+    <object Blueprint="water"></object>
+    <object Blueprint="slime"></object>
+    <object Blueprint="oil"></object>
+    <object Blueprint="blood"></object>
+    <object Blueprint="acid"></object>
+    <object Blueprint="ooze"></object>
+    <object Blueprint="milk"></object>
+  </population>
+
+  <population Name="DairyFarmerInventory">
+    <group Style="pickeach">
+      <object Blueprint="Milk Bottle" Number="4-6"></object>
+      <object Blueprint="Random Milky Bottle" Number="1-3"></object>
+      <object Blueprint="Crusty Loaf" Number="1-2"></object>
+      <object Blueprint="Hunk of Cheese" Number="2-5"></object>
+      <table Name="Cookbooks" Number="1" Chance="20"></table>
+    </group>
+  </population>
+</populations>

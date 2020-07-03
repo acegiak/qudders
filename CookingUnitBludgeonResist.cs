@@ -1,7 +1,7 @@
 using System;
 using XRL.Rules;
 
-namespace XRL.World.Parts.Effects
+namespace XRL.World.Effects
 {
 	[Serializable]
 	public class CookingDomainStrongBones_BludgeonDamageReduction : ProceduralCookingEffectUnit

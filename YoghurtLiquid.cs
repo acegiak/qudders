@@ -5,7 +5,7 @@ using XRL.Core;
 using XRL.Rules;
 using XRL.World;
 using XRL.World.Parts;
-using XRL.World.Parts.Effects;
+using XRL.World.Effects;
 
 namespace XRL.Liquids
 {
@@ -22,7 +22,7 @@ namespace XRL.Liquids
 		};
 
 		public acegiak_LiquidYoghurt()
-			: base(ID, 350, 2000, 1.1f)
+			: base(ID)
 		{
 		}
 
