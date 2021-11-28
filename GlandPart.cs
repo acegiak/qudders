@@ -27,6 +27,33 @@ namespace XRL.World.Parts.Mutation
 		{
 			return false;
 		}
+		public static int GetMaxVolume(int Level)
+		{
+			return 8 + Level * 2;
+		}
+		public int GetMaxVolume()
+		{
+			return GetMaxVolume(base.Level);
+		}
+		public static int GetProductionRate(int Level)
+		{
+			return 1000 * (int) Math.Pow(0.9, Level);
+		} 
+		public int GetProductionRate()
+		{
+			return GetProductionRate(base.Level);
+		}
+		/// Used to update max volume and production rate based on mutation level
+		public void SyncStats()
+		{
+			GameObject GlandsObject = GetGlands();
+			if(GlandsObject == null)
+			{
+				return;
+			}
+			GlandsObject.GetPart<LiquidProducer>().Rate = GetProductionRate();
+			GlandsObject.GetPart<LiquidVolume>().MaxVolume = GetMaxVolume();
+		}
         public void AddBodyPart(){
 
 			string gtype = ParentObject.GetTag("GlandLiquid");
@@ -47,9 +74,10 @@ namespace XRL.World.Parts.Mutation
 				BodyPart firstPart = body.AddPart(new BodyPart("Glands",part),"Back");
                 GameObject GlandsObject = GameObjectFactory.Factory.CreateObject("DefaultGlands");
 				GlandsObject.DisplayName = GlandType+" glands";
+				SyncStats();
 				GlandsObject.GetPart<LiquidProducer>().Liquid=GlandType;
 				GlandsObject.GetPart<LiquidVolume>().Empty();
-				GlandsObject.GetPart<LiquidVolume>().InitialLiquid=GlandType+"-1000";
+				GlandsObject.GetPart<LiquidVolume>().InitialLiquid=GlandType+"-"+GetMaxVolume();
 				GlandsObject.GetPart<LiquidVolume>().Volume = GlandsObject.GetPart<LiquidVolume>().StartVolume.RollCached();
 				//GlandsObject.GetPart<acegiak_NoPour>().ProcessInitialLiquid(GlandType-"1000");
 
@@ -74,7 +102,7 @@ namespace XRL.World.Parts.Mutation
             base.Register(Object);
 		}
 
-		public GameObject CheckGlands()
+		public GameObject GetGlands()
 		{
 			GameObject result = null;
 			int num = 0;
@@ -101,8 +129,9 @@ namespace XRL.World.Parts.Mutation
 
             if (E.ID == "InvCommandMilk")
 			{
-				GameObject GO = CheckGlands();
-				if(GO != null){
+				GameObject GO = GetGlands();
+				if(GO != null)
+				{
 					if(ParentObject.pBrain.IsHostileTowards(E.GetGameObjectParameter("Owner")) ){
 
 						if (ParentObject.MakeSave("Strength", 18, E.GetGameObjectParameter("Owner"), null, "Milking"))
@@ -142,18 +171,19 @@ namespace XRL.World.Parts.Mutation
 
 		public override string GetDescription()
 		{
-			return "You have glands that produce milk over time.";
+			return "You have glands that produce " + GlandType + " over time.";
 		}
 
-		// public override string GetLevelText(int Level)
-		// {
-		// 	string empty = string.Empty;
-		// 	return empty + "Your \n";
-		// }
+		public override string GetLevelText(int Level)
+		{
+			string glandname = DisplayName.ToLower();
+			return "You can produce and store " + GetMaxVolume(Level) + " drams of " + GlandType + " in your " + GlandType + " glands at a rate of " + GetProductionRate(Level) + " rounds per dram.\n";
+		}
 
 
 		public override bool ChangeLevel(int NewLevel)
 		{
+			SyncStats();
 			return base.ChangeLevel(NewLevel);
 		}
 
