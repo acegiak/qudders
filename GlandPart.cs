@@ -17,13 +17,9 @@ namespace XRL.World.Parts.Mutation
 		{
 			return false;
 		}
-		public override bool CanLevel()
-		{
-			return false;
-		}
 		public static int GetMaxVolume(int Level)
 		{
-			return 8 + Level * 2;
+			return 6 + Level * 2;
 		}
 		public int GetMaxVolume()
 		{
@@ -31,7 +27,7 @@ namespace XRL.World.Parts.Mutation
 		}
 		public static int GetProductionRate(int Level)
 		{
-			return 1000 * (int) Math.Pow(0.9, Level);
+			return 1000 * (int) Math.Pow(0.9, Level-1);
 		} 
 		public int GetProductionRate()
 		{
@@ -69,11 +65,13 @@ namespace XRL.World.Parts.Mutation
 				GameObject GlandsObject = GameObjectFactory.Factory.CreateObject("DefaultGlands");
 				GlandsObject.DisplayName = GlandType+" glands";
 				SyncStats();
-				GlandsObject.GetPart<LiquidProducer>().Liquid=GlandType;
-				GlandsObject.GetPart<LiquidVolume>().Empty();
-				GlandsObject.GetPart<LiquidVolume>().InitialLiquid=GlandType+"-"+GetMaxVolume();
-				GlandsObject.GetPart<LiquidVolume>().Volume = GlandsObject.GetPart<LiquidVolume>().StartVolume.RollCached();
-				//GlandsObject.GetPart<acegiak_NoPour>().ProcessInitialLiquid(GlandType-"1000");
+				LiquidProducer liquidProducer = GlandsObject.GetPart<LiquidProducer>();
+				LiquidVolume liquidVolume = GlandsObject.GetPart<LiquidVolume>();
+				liquidProducer.Liquid=GlandType;
+				liquidVolume.Empty();
+				liquidVolume.StartVolume = "1-"+liquidVolume.MaxVolume;
+				liquidVolume.InitialLiquid = GlandType;
+				liquidVolume.Volume = liquidVolume.StartVolume.RollCached();
 
 
 				Event @event = Event.New("CommandForceEquipObject");

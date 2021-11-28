@@ -10,7 +10,7 @@
                 <part Name="Render" DisplayName="milk glands" ColorString="&amp;M" RenderString="]" DetailColor="Y" Tile="items/udder.png" />
                 <part Name="LiquidProducer" Liquid="milk" Rate="1000" WorksOnWearer="true" WorksOnSelf="false" />
                 <part Name="Description" Short="Glands slowly secreting milk over time." />
-                <part Name="LiquidVolume"  MaxVolume="8" StartVolume="1-8" InitialLiquid="milk-1000" />
+                <part Name="LiquidVolume" MaxVolume="8" InitialLiquid="milk-1000" />
                 <part Name="Cursed" />
                 <part Name="NoDamage" />
                 <part Name="NoBreak" />
