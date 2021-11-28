@@ -64,14 +64,14 @@
       </object>
       
         <object Name="milkLichen" Inherits="LiquidLichen">
-                <part Name="Render" RenderIfDark="true" DisplayName="&amp;ygiant &amp;wmilk&amp;y weep" RenderString="231" ColorString="&amp;w"></part>
+                <part Name="Render" RenderIfDark="true" DisplayName="giant {{Y|milk}} weep" RenderString="231" ColorString="&amp;Y"></part>
                 <mutation Name="LiquidFont" Liquid="milk"></mutation>
-                <part Name="SecretObject" text="A &amp;ygiant &amp;wmilk&amp;y weep" message="You spot a &amp;ygiant &amp;wmilk&amp;y weep." adjectives="milk,weep" category="Natural Features"></part>
+                <part Name="SecretObject" text="A giant {{Y|milk}} weep" message="You spot a giant {{Y|milk}} weep." adjectives="milk,weep" category="Natural Features"></part>
         </object>
         <object Name="milkLichen Minor" Inherits="LiquidLichen Minor">
-                <part Name="Render" RenderIfDark="true" DisplayName="&amp;wmilk&amp;y weep" RenderString="231" ColorString="&amp;w"></part>
+                <part Name="Render" RenderIfDark="true" DisplayName="{{Y|milk}} weep" RenderString="231" ColorString="&amp;Y"></part>
                 <mutation Name="LiquidFont" Liquid="milk"></mutation>
-                <part Name="SecretObject" text="A &amp;wmilk&amp;y weep" message="You spot a &amp;wmilk&amp;y weep." adjectives="milk,weep" category="Natural Features"></part>
+                <part Name="SecretObject" text="A {{Y|milk}} weep" message="You spot a {{Y|milk}} weep." adjectives="milk,weep" category="Natural Features"></part>
         </object>
       <!-- <object Name="YoghurtDribble" Inherits="Water">
         <part Name="LiquidVolume" MaxVolume="-1" Volume="10" StartVolume="1" InitialLiquid="yoghurt-1000"></part>
