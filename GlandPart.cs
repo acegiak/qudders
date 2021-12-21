@@ -27,7 +27,7 @@ namespace XRL.World.Parts.Mutation
 		}
 		public static int GetProductionRate(int Level)
 		{
-			return (int) (1000.0d * Math.Pow(0.9, Level-1));
+			return (int) (500.0d * Math.Pow(0.9, Level-1));
 		} 
 		public int GetProductionRate()
 		{
