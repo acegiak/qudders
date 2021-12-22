@@ -1,7 +1,6 @@
 using System;
 using XRL.Rules;
 using Qud.API;
-using XRL.Rules;
 
 namespace XRL.World.Parts
 {

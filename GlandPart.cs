@@ -6,28 +6,45 @@ namespace XRL.World.Parts.Mutation
 	[Serializable]
 	public class acegiak_Glands  : BaseMutation
 	{
-		public int Bonus;
-
-		public int FeetID;
-
-		public int OldFeetID;
-
-        public string GlandType = "milk";
+		public string GlandType = "milk";
 
 		public acegiak_Glands()
 		{
 			DisplayName = "Milk Glands";
 			Type = "Physical";
 		}
-        public override bool SameAs(IPart p)
+		public override bool SameAs(IPart p)
 		{
 			return false;
 		}
-		public override bool CanLevel()
+		public static int GetMaxVolume(int Level)
 		{
-			return false;
+			return 6 + Level * 2;
 		}
-        public void AddBodyPart(){
+		public int GetMaxVolume()
+		{
+			return GetMaxVolume(base.Level);
+		}
+		public static int GetProductionRate(int Level)
+		{
+			return (int) (500.0d * Math.Pow(0.9, Level-1));
+		} 
+		public int GetProductionRate()
+		{
+			return GetProductionRate(base.Level);
+		}
+		/// Used to update max volume and production rate based on mutation level
+		public void SyncStats()
+		{
+			GameObject GlandsObject = GetGlands();
+			if(GlandsObject == null)
+			{
+				return;
+			}
+			GlandsObject.GetPart<LiquidProducer>().Rate = GetProductionRate();
+			GlandsObject.GetPart<LiquidVolume>().MaxVolume = GetMaxVolume();
+		}
+		public void AddBodyPart(){
 
 			string gtype = ParentObject.GetTag("GlandLiquid");
 			if(gtype != null){
@@ -35,7 +52,7 @@ namespace XRL.World.Parts.Mutation
 				this.GlandType = gtype;
 			}
 
-            Body part = ParentObject.GetPart<Body>();
+			Body part = ParentObject.GetPart<Body>();
 			if (part != null)
 			{
 				BodyPart body = part.GetBody();
@@ -45,13 +62,16 @@ namespace XRL.World.Parts.Mutation
 				}
 
 				BodyPart firstPart = body.AddPart(new BodyPart("Glands",part),"Back");
-                GameObject GlandsObject = GameObjectFactory.Factory.CreateObject("DefaultGlands");
+				GameObject GlandsObject = GameObjectFactory.Factory.CreateObject("DefaultGlands");
 				GlandsObject.DisplayName = GlandType+" glands";
-				GlandsObject.GetPart<LiquidProducer>().Liquid=GlandType;
-				GlandsObject.GetPart<LiquidVolume>().Empty();
-				GlandsObject.GetPart<LiquidVolume>().InitialLiquid=GlandType+"-1000";
-				GlandsObject.GetPart<LiquidVolume>().Volume = GlandsObject.GetPart<LiquidVolume>().StartVolume.RollCached();
-				//GlandsObject.GetPart<acegiak_NoPour>().ProcessInitialLiquid(GlandType-"1000");
+				SyncStats();
+				LiquidProducer liquidProducer = GlandsObject.GetPart<LiquidProducer>();
+				LiquidVolume liquidVolume = GlandsObject.GetPart<LiquidVolume>();
+				liquidProducer.Liquid=GlandType;
+				liquidVolume.Empty();
+				liquidVolume.StartVolume = "1-"+liquidVolume.MaxVolume;
+				liquidVolume.InitialLiquid = GlandType;
+				liquidVolume.Volume = liquidVolume.StartVolume.RollCached();
 
 
 				Event @event = Event.New("CommandForceEquipObject");
@@ -60,10 +80,10 @@ namespace XRL.World.Parts.Mutation
 				@event.SetSilent(true);
 				ParentObject.FireEvent(@event);
 
-            }
+			}
 
 
-        }
+		}
 
 		public override void Register(GameObject Object)
 		{
@@ -71,13 +91,11 @@ namespace XRL.World.Parts.Mutation
 			Object.RegisterPartEvent(this, "GetInventoryActions");
 			Object.RegisterPartEvent(this, "InvCommandMilk");
 			Object.RegisterPartEvent(this, "GetShortDescription");
-            base.Register(Object);
+			base.Register(Object);
 		}
 
-		public GameObject CheckGlands()
+		public GameObject GetGlands()
 		{
-			GameObject result = null;
-			int num = 0;
 			Body part = ParentObject.GetPart<Body>();
 			BodyPart bp = part.GetFirstPart("Glands");
 
@@ -85,24 +103,25 @@ namespace XRL.World.Parts.Mutation
 		}
 		public override bool FireEvent(Event E)
 		{
-            if(E.ID =="ObjectCreated"){
-                AddBodyPart();
-            }
-
-
-            if (E.ID == "GetInventoryActions")
-			{
-                //if(Volume > 0){
-						// E.AddInventoryAction("Drink", 'k',  false, "drin&Wk&y", "InvCommandDrinkObject");
-						E.AddInventoryAction("Milk", 'm',  false, "&Wm&yilk", "InvCommandMilk");
-                        // E.AddInventoryAction("Collect", 'c',  false, "&Wc&yollect", "InvCommandCollectObject");
-                //}
+			if(E.ID =="ObjectCreated"){
+				AddBodyPart();
 			}
 
-            if (E.ID == "InvCommandMilk")
+
+			if (E.ID == "GetInventoryActions")
 			{
-				GameObject GO = CheckGlands();
-				if(GO != null){
+				//if(Volume > 0){
+						// E.AddInventoryAction("Drink", 'k',  false, "drin&Wk&y", "InvCommandDrinkObject");
+						E.AddInventoryAction("Milk", 'm',  false, "&Wm&yilk", "InvCommandMilk");
+						// E.AddInventoryAction("Collect", 'c',  false, "&Wc&yollect", "InvCommandCollectObject");
+				//}
+			}
+
+			if (E.ID == "InvCommandMilk")
+			{
+				GameObject GO = GetGlands();
+				if(GO != null)
+				{
 					if(ParentObject.pBrain.IsHostileTowards(E.GetGameObjectParameter("Owner")) ){
 
 						if (ParentObject.MakeSave("Strength", 18, E.GetGameObjectParameter("Owner"), null, "Milking"))
@@ -124,7 +143,6 @@ namespace XRL.World.Parts.Mutation
 						}
 					}
 					GO.FireEvent(E.Copy("InvCommandPourObject"));
-
 				}
 			}
 
@@ -142,21 +160,21 @@ namespace XRL.World.Parts.Mutation
 
 		public override string GetDescription()
 		{
-			return "You have glands that produce milk over time.";
+			return "You have glands that produce " + GlandType + " over time.";
 		}
 
-		// public override string GetLevelText(int Level)
-		// {
-		// 	string empty = string.Empty;
-		// 	return empty + "Your \n";
-		// }
+		public override string GetLevelText(int Level)
+		{
+			string glandname = DisplayName.ToLower();
+			return "You can produce and store " + GetMaxVolume(Level) + " drams of " + GlandType + " in your " + GlandType + " glands at a rate of " + GetProductionRate(Level) + " rounds per dram.\n";
+		}
 
 
 		public override bool ChangeLevel(int NewLevel)
 		{
+			SyncStats();
 			return base.ChangeLevel(NewLevel);
 		}
-
 
 		public override bool Mutate(GameObject GO, int Level)
 		{
@@ -167,10 +185,10 @@ namespace XRL.World.Parts.Mutation
 				BodyPart body = part.GetBody();
 
 				int glandcount = body.GetPartCount("Glands");
-                if(glandcount <= 0){
-                    AddBodyPart();
-                }
-            }
+				if(glandcount <= 0){
+					AddBodyPart();
+				}
+			}
 			return base.Mutate(GO, Level);
 		}
 
@@ -182,10 +200,10 @@ namespace XRL.World.Parts.Mutation
 				BodyPart body = part.GetBody();
 
 				int glandcount = body.GetPartCount("Glands");
-                if(glandcount > 0){
-                    body.RemovePart(body.GetFirstPart("Glands"));
-                }
-            }
+				if(glandcount > 0){
+					body.RemovePart(body.GetFirstPart("Glands"));
+				}
+			}
 			return base.Unmutate(GO);
 		}
 	}
