@@ -76,7 +76,7 @@ namespace XRL.Liquids
 			return true;
 		}
 
-		public override void RenderBackground(LiquidVolume Liquid, RenderEvent eRender)
+		public override void RenderBackgroundPrimary(LiquidVolume Liquid, RenderEvent eRender)
 		{
 			eRender.ColorString = "^Y" + eRender.ColorString;
 		}
@@ -127,18 +127,14 @@ namespace XRL.Liquids
 			eRender.ColorString += "&Y";
 		}
 
-		public override void RenderSmearPrimary(LiquidVolume Liquid, RenderEvent eRender)
+		public override void RenderSmearPrimary(LiquidVolume Liquid, RenderEvent eRender, GameObject obj)
 		{
 			int num = XRLCore.CurrentFrame % 60;
 			if (num > 5 && num < 15)
 			{
 				eRender.ColorString = "&Y";
 			}
-			base.RenderSmearPrimary(Liquid, eRender);
-		}
-
-		public override void ObjectEnteredCell(LiquidVolume Liquid, GameObject GO)
-		{
+			base.RenderSmearPrimary(Liquid, eRender, obj);
 		}
 
 		public override float GetValuePerDram()
@@ -146,7 +142,7 @@ namespace XRL.Liquids
 			return 3.8f;
 		}
 
-		public override int GetNavigationWeight(LiquidVolume Liquid, GameObject GO, bool Smart, bool Slimewalking, ref bool Uncacheable)
+		public override int GetNavigationWeight(LiquidVolume Liquid, GameObject GO, bool Smart, bool Slimewalking, bool FilthAffinity, ref bool Uncacheable)
 		{
 			return 0;
 		}

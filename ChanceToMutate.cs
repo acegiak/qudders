@@ -12,30 +12,30 @@ namespace XRL.World.Parts
 	[Serializable]
 	public class acegiak_ChanceToMutate  : IPart
 	{
-        public string Mutation = "Milk Glands";
-        public int Chance = 95;
-        public int Level = 1;
+		public string Mutation = "Milk Glands";
+		public int Chance = 95;
+		public int Level = 1;
 
-        public void domutate(){
-            if(ParentObject.IsPlayer() || ParentObject.IsMemberOfFaction("Templar")){
-                return;
-            }
-            int roll = Stat.Random(1,100);
-           Log("Titroll:"+roll.ToString()+"/"+Chance.ToString());
-            if(roll<=Chance){
-                Mutations mutations = ParentObject.GetPart("Mutations") as Mutations;
-                if (mutations == null )
-                {
-                   Log("Can mutate, no mutations part");
-                    return ;
-                }
-                if( ! MutationFactory.MutationsByName.ContainsKey(Mutation)){
-                   Log("Mutation "+Mutation+" isn't recognised");
-                }
-                mutations.AddMutation(MutationFactory.MutationsByName[Mutation].CreateInstance(), Level);
-               Log("mutated");
-            }
-        }
+		public void domutate(){
+			if(ParentObject.IsPlayer() || ParentObject.IsMemberOfFaction("Templar")){
+				return;
+			}
+			int roll = Stat.Random(1,100);
+			Log("Titroll:"+roll.ToString()+"/"+Chance.ToString());
+			if(roll<=Chance){
+				Mutations mutations = ParentObject.GetPart("Mutations") as Mutations;
+				if (mutations == null )
+				{
+					Log("Can mutate, no mutations part");
+					return ;
+				}
+				if(!MutationFactory.HasMutation(Mutation)){
+					Log("Mutation "+Mutation+" isn't recognised");
+				}
+				mutations.AddMutation(MutationFactory.GetMutationEntryByName(Mutation).CreateInstance(), Level);
+				Log("mutated");
+			}
+		}
 
 		public override void Register(GameObject Object)
 		{
@@ -47,10 +47,10 @@ namespace XRL.World.Parts
 		{
 			if (E.ID == "ObjectCreated")
 			{
-                domutate();
-            }
-            return base.FireEvent(E);
-        }
-    }
+				domutate();
+			}
+			return base.FireEvent(E);
+		}
+	}
 
 }
