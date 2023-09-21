@@ -142,7 +142,7 @@ namespace XRL.Liquids
 			return 3.8f;
 		}
 
-		public override int GetNavigationWeight(LiquidVolume Liquid, GameObject GO, bool Smart, bool Slimewalking, ref bool Uncacheable)
+		public override int GetNavigationWeight(LiquidVolume Liquid, GameObject GO, bool Smart, bool Slimewalking, bool FilthAffinity, ref bool Uncacheable)
 		{
 			return 0;
 		}

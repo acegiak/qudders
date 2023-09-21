@@ -1,5 +1,6 @@
 using System;
 using XRL.Language;
+using XRL.World.Anatomy;
 
 namespace XRL.World.Parts.Mutation
 {
